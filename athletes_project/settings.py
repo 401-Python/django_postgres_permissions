@@ -36,7 +36,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+
+    #local
     'athletes.apps.AthletesConfig',
 
 
@@ -52,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'athletes_project.urls'
@@ -127,13 +131,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+  STATIC_DIR,
+]
 
 REST_FRAMEWORK = {
   'DEFAULT_PERMISSION_CLASSES' : [
-    'rest_framework.permissions.IsAuthenticated'
-  ]
+    'rest_framework.permissions.IsAuthenticated',
+
+  ],
+  'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
 }
 
 if __name__ == "__main__":
     print('base dir', BASE_DIR)
-    print('database',  DATABASES['default']['NAME'])
+    

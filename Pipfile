@@ -10,6 +10,10 @@ django = "*"
 djangorestframework = "*"
 psycopg2-binary = "*"
 pytest = "*"
+djangorestframework-simplejwt = "*"
+gunicorn = "*"
+whitenoise = "*"
+corsheaders = "*"
 
 [requires]
 python_version = "3.7"
